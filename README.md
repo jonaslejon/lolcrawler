@@ -1,10 +1,8 @@
-<p align="center">
 <img src="https://triop.se/wp-content/uploads/2021/05/lolcrawler.png" alt="LOLCrawler!">
-</p>
 
-## lolcrawler!
+## lolcrawler
 
-Headless browser crawler created for BugBounty and penetration-testing/RedTeaming. Beware, this code is really slow but should be able to run for several days and find some really interesting urls.
+Lolcrawler is a Headless browser crawler created for BugBounty and penetration-testing/RedTeaming. Beware, this code is really slow but should be able to run for several days and find some really interesting urls.
 
 The crawler is using several different methods for trying to find links and urls such as BeautifulSoup, jsbeautifier, urlextract and linkfinder.py.
 
