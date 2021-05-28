@@ -10,16 +10,21 @@ The crawler is using several different methods for trying to find links and urls
 
 Download and run from Docker Hub:
 
-`docker pull jonaslejon/lolcrawler`
-`docker run jonaslejon/lolcrawler https://triop.se`
+`docker pull jonaslejon/lolcrawler
+
+docker run jonaslejon/lolcrawler https://triop.se`
 
 ## Option 2
 
 Download, build and run:
 `mkdir lolcrawler
+
 cd lolcrawler
+
 git clone https://github.com/jonaslejon/lolcrawler.git
+
 docker build -t jonaslejon/lolcrawler .
+
 `docker run jonaslejon/lolcrawler https://triop.se`
 `
 
