@@ -35,4 +35,4 @@ Run the following command in the folder:
 
 # Background
 
-I wanted a tool similar to the Burp Suite crawler that I can run and forget about. Also parts of this code is powering the backend of [https://wpsec.com](WPSec.com).
+I wanted a tool similar to the Burp Suite crawler that I can run and forget about. Also parts of this code is powering the backend of [WPSec.com](https://wpsec.com).
