@@ -6,6 +6,8 @@ Lolcrawler is a Headless browser crawler created for BugBounty and penetration-t
 
 The crawler is using several different methods for trying to find links and urls such as BeautifulSoup, jsbeautifier, urlextract and linkfinder.py.
 
+You need to install docker to run this crawler due to the headless selenium browser.
+
 ## Run the crawler
 
 ### Option 1 
