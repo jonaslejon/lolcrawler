@@ -1,0 +1,14 @@
+selenium 
+webdriver-manager
+lxml 
+jsbeautifier
+tinycss2
+random_user_agent 
+idna 
+uritools 
+appdirs 
+dnspython
+urlextract
+url_normalize
+bs4
+timeout_decorator

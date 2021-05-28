@@ -1,0 +1,17 @@
+
+git/
+bundle/
+.idea/
+.yardoc/
+cache/
+coverage/
+spec/
+.*
+**/*.md
+*.md
+!README.md
+Dockerfile
+**/*.orig
+*.orig
+.github/
+__pycache__
