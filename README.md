@@ -4,6 +4,25 @@ Headless browser crawler created for BugBounty and penetration-testing/RedTeamin
 
 The crawler is using several different methods for trying to find links and urls such as BeautifulSoup, jsbeautifier, urlextract and linkfinder.py.
 
+# Run the crawler
+
+## Option 1 
+
+Download and run from Docker Hub:
+
+`docker pull jonaslejon/lolcrawler`
+`docker run jonaslejon/lolcrawler https://triop.se`
+
+## Option 2
+
+Download, build and run:
+`mkdir lolcrawler
+cd lolcrawler
+git clone https://github.com/jonaslejon/lolcrawler.git
+docker build -t jonaslejon/lolcrawler .
+`docker run jonaslejon/lolcrawler https://triop.se`
+`
+
 # Build docker image
 
 Run the following command in the folder:
