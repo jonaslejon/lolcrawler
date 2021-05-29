@@ -8,6 +8,12 @@ The crawler is using several different methods for trying to find links and urls
 
 You need to install docker to run this crawler due to the headless selenium browser. 
 
+# Demo
+
+Animated GIF:
+
+<img src="https://triop.se/wp-content/uploads/2021/05/lolcrawler.gif" alt="lolcrawler demo">
+
 ## Run the crawler
 
 ### Option 1 
