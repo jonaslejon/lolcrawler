@@ -12,7 +12,7 @@ You need to install docker to run this crawler due to the headless selenium brow
 
 Animated GIF:
 
-<img src="https://triop.se/wp-content/uploads/2021/05/lolcrawler.gif" alt="lolcrawler demo" width="500" height="600">
+<img src="https://triop.se/wp-content/uploads/2021/05/lolcrawler.gif" alt="lolcrawler demo" width="500" height="300">
 
 ## Run the crawler
 
