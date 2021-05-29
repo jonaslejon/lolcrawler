@@ -20,6 +20,7 @@ var/
 .installed.cfg
 *.egg
 output/crawl.log
+output/.gitkeep
 
 # Installer logs
 pip-log.txt
