@@ -1,6 +1,6 @@
 <img src="https://triop.se/wp-content/uploads/2021/05/lolcrawler.png" alt="LOLCrawler!">
 
-# lolcrawler
+# lolcrawler 🕷
 
 Lolcrawler is a Headless browser crawler created for BugBounty and penetration-testing/RedTeaming. Beware, this code is really slow but should be able to run for several days and find some really interesting urls/paths. 
 
