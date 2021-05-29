@@ -12,3 +12,4 @@ urlextract
 url_normalize
 bs4
 timeout_decorator
+argparse

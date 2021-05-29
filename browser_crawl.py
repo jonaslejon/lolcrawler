@@ -18,9 +18,7 @@ from bs4 import BeautifulSoup, SoupStrainer
 from urllib.parse import urldefrag, urljoin, urlparse
 from random_user_agent.user_agent import UserAgent
 from random_user_agent.params import Popularity
-import timeout_decorator
 
-@timeout_decorator.timeout(5) # 5 sec timeout on each url. 
 def crawl1(base_url, url):
 
     if platform == "linux" or platform == "linux2":

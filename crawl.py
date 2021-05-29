@@ -1,16 +1,16 @@
 #!/usr/local/bin/python3
 ##
 ## Extract urls from webpage. Please run in Docker container due to selenium headless browser
-## Jonas Lejon 2021 <jonas.lolcrawler@triop.se>
+## Jonas Lejon 2021-05-29 <jonas.lolcrawler@triop.se>
 ##
 # pip3 install selenium webdriver-manager lxml jsbeautifier tinycss2 random_user_agent
 # or pip3 install -r requirements.txt
 #
-# If running this on macOS, not recommended:
+# If running this directly on macOS, not recommended:
 # brew install --cask chromedriver
 # xattr -d com.apple.quarantine /usr/local/bin/chromedriver
 
-VERSION="0.3"
+VERSION="0.4"
 
 import sys
 if sys.version_info[0] < 3:
@@ -21,6 +21,7 @@ import requests
 import tinycss2
 import traceback
 import timeout_decorator
+import argparse
 from selenium import webdriver  
 from selenium.webdriver.common.keys import Keys  
 from selenium.webdriver.chrome.options import Options
@@ -43,24 +44,36 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # Our own
 from browser_crawl import crawl1
 
+VERBOSE = False
+
 # Credits to Gerben Javado, https://raw.githubusercontent.com/GerbenJavado/LinkFinder/master/linkfinder.py
 from linkfinder import parser_file, regex_str
 
 def main():
+    global VERBOSE
     logo()
-    try:
-        crawl(sys.argv[1])
-    except IndexError:
-        print("Error: Start url is missing")
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-o', '--output', help="Write links to this file", required=True)
+    parser.add_argument('-u', '--url', help="Target website to crawl", dest="start_url", required=True)
+    parser.add_argument('-v', '--verbose', help="increase output verbosity", action="store_true")
+    parser.add_argument("-t", "--timeout", type=int, help="Adjust the timeout", default=5)
+    args = parser.parse_args()
+
+    VERBOSE = args.verbose
+
+    crawl(args.start_url, args.output, args.timeout)
 
 def crawl_debug(msg):
-    print(msg)
+    if(VERBOSE):
+        print(msg)
     return
 
 def logo():
     print("\n    ╻  ┏━┓╻  ╻   ┏━╸┏━┓┏━┓╻ ╻╻  ┏━╸┏━┓")
     print("    ┃  ┃ ┃┃  ╹   ┃  ┣┳┛┣━┫┃╻┃┃  ┣╸ ┣┳┛")
     print("    ┗━╸┗━┛┗━╸╹   ┗━╸╹┗╸╹ ╹┗┻┛┗━╸┗━╸╹┗╸ lolcrawler version {0}\n".format(VERSION))
+    print("    by Jonas Lejon\n")
 
 # Extract urls using https://github.com/lipoja/URLExtract
 def text2url(html):
@@ -69,8 +82,12 @@ def text2url(html):
 
     return urls
 
+def save_output(status_code, url, output):
+    with open(output, "a") as logfile:
+        logfile.write("{}, {}\n".format(status_code, url))
+
 # Main crawling function
-def crawl(start_url):
+def crawl(start_url, output, timeout):
     ## Figure out if we are redirected or now
     headers = {'User-Agent': random_agent()}
 
@@ -81,14 +98,13 @@ def crawl(start_url):
         print("- Redirecting to", fixup_url(response.url))
         base_url = fixup_url(response.url)
     else:
-        base_url = fixup_url(sys.argv[1])
+        base_url = fixup_url(start_url)
 
     base_netloc = urlparse(base_url).netloc
 
     seen = set()
     sitemap = set()
     todo = [base_url]
-
     external_links = []
     internal_links = []
 
@@ -97,13 +113,11 @@ def crawl(start_url):
     while todo:
 
         url = todo.pop()
-        
-        print("Seen URLs: " + str(len(seen)) + ", todo URLs: " + str(len(todo)))
-
+        crawl_debug("Seen URLs: " + str(len(seen)) + ", todo URLs: " + str(len(todo)))
         status_code = 404 # Default status code
 
         try:
-            status_code, external_links, internal_links = run_craw(base_url, url, base_netloc)
+            status_code, external_links, internal_links = run_craw(base_url, url, base_netloc, timeout)
         except TypeError:
             pass
         except Exception as e:
@@ -111,6 +125,8 @@ def crawl(start_url):
             traceback.print_exc()
             pass
 
+        ## Save to file
+        save_output(status_code, url, output)
         sitemap.add((status_code, url))
 
         try:
@@ -127,15 +143,9 @@ def crawl(start_url):
 
     end = time.time()
 
-    print("Sitemap:")
-    if internal_links:
-        pprint(internal_links)
-#    for links in sitemap:
-#        print("{0} {1}", format(links['status_code'], links['url']))
+    print("Done crawling. Elapsed time: {} sec".format( round(end-start)))
 
-    print("Done crawling. Took:",round(end-start),"sec")
-
-def run_craw(base_url, url, base_netloc):
+def run_craw(base_url, url, base_netloc, timeout):
 
     url = fixup_url(url)
 
@@ -144,7 +154,7 @@ def run_craw(base_url, url, base_netloc):
 
     headers = {'User-Agent': random_agent()}
 
-    print("Visiting",url)
+    print("Crawling {}".format(url))
 
     response = requests.get(url, headers=headers, verify=False)
 

@@ -2,11 +2,11 @@
 
 # lolcrawler
 
-Lolcrawler is a Headless browser crawler created for BugBounty and penetration-testing/RedTeaming. Beware, this code is really slow but should be able to run for several days and find some really interesting urls.
+Lolcrawler is a Headless browser crawler created for BugBounty and penetration-testing/RedTeaming. Beware, this code is really slow but should be able to run for several days and find some really interesting urls/paths. 
 
 The crawler is using several different methods for trying to find links and urls such as BeautifulSoup, jsbeautifier, urlextract and linkfinder.py.
 
-You need to install docker to run this crawler due to the headless selenium browser.
+You need to install docker to run this crawler due to the headless selenium browser. 
 
 ## Run the crawler
 
@@ -28,7 +28,7 @@ mkdir lolcrawler
 cd lolcrawler
 git clone https://github.com/jonaslejon/lolcrawler.git
 docker build -t jonaslejon/lolcrawler .
-docker run jonaslejon/lolcrawler https://triop.se
+docker run --rm -v `pwd`/output:/output -it jonaslejon/lolcrawler -u https://tor.triop.se -o /output/crawl.log
 ```
 
 ## Build docker image
