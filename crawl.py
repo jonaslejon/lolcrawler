@@ -1,4 +1,5 @@
 #!/usr/local/bin/python3
+# -*- coding: UTF-8 -*-
 ##
 ## Extract urls from webpage. Please run in Docker container due to selenium headless browser
 ## Jonas Lejon 2021-05-29 <jonas.lolcrawler@triop.se>
