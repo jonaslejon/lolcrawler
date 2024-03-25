@@ -33,9 +33,8 @@ docker run --rm -v `pwd`/output:/output -it jonaslejon/lolcrawler -u https://tor
 Download, build and run:
 
 ```
-mkdir lolcrawler
-cd lolcrawler
 git clone https://github.com/jonaslejon/lolcrawler.git
+cd lolcrawler
 docker build -t jonaslejon/lolcrawler .
 docker run --rm -v `pwd`/output:/output -it jonaslejon/lolcrawler -u https://tor.triop.se -o /output/crawl.log
 ```
