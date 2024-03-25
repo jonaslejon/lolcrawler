@@ -2,8 +2,6 @@ FROM alpine:latest
 
 RUN apk update && apk add --no-cache bash \
         alsa-lib \
-        at-spi2-atk \
-        atk \
         cairo \
         cups-libs \
         dbus-libs \
@@ -29,14 +27,14 @@ RUN apk update && apk add --no-cache bash \
         chromium \
         chromium-chromedriver
 RUN apk add --no-cache python3 py3-pip py3-lxml
-RUN pip3 install selenium
+RUN pip3 install --break-system-packages selenium
 
 ADD crawl.py crawl.py
 ADD linkfinder.py linkfinder.py
 ADD browser_crawl.py browser_crawl.py
 ADD requirements.txt requirements.txt
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install --break-system-packages -r requirements.txt
 
 RUN adduser -D -g '' basicuser
 USER basicuser
